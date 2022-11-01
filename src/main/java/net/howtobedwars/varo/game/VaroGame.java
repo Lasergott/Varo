@@ -33,6 +33,8 @@ public class VaroGame {
     @Setter
     private boolean protectionTime;
 
+    private final Tablist tablist;
+
     @Getter
     private final Map<UUID, User> userRegistry;
 
@@ -53,6 +55,7 @@ public class VaroGame {
         this.TEAM_ROD_DAMAGE = mainConfig.isTeamRodDamage();
         this.starting = false;
         this.protectionTime = false;
+        this.tablist = new Tablist(varo);
         this.userRegistry = new HashMap<>();
         this.combatLog = CacheBuilder.newBuilder()
                 .expireAfterWrite(ANTI_COMBAT_LOG_TIME - 1, TimeUnit.SECONDS)
@@ -60,20 +63,10 @@ public class VaroGame {
     }
 
     public void setTablist(User user) {
-        Tablist tablist = new Tablist(varo, user);
-        tablist.set();
-    }
-
-    public void removeTablist(User user) {
-        user.getTablist().remove();
-        user.setTablist(null);
+        tablist.set(user);
     }
 
     public void updateTablist() {
-        getUserRegistry().values().forEach(user -> {
-            if(user.getTablist() != null) {
-                user.getTablist().update();
-            }
-        });
+        getUserRegistry().values().forEach(user -> tablist.update());
     }
 }

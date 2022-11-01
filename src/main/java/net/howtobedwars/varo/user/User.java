@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 public class User {
@@ -21,7 +20,8 @@ public class User {
     private final UUID uuid;
 
     @Getter
-    private final Player player;
+    @Setter
+    private Player player;
 
     @Getter
     private final VaroTeam team;
@@ -35,14 +35,14 @@ public class User {
     @Setter
     private int onlineTime;
 
-    private User(UUID uuid, VaroTeam team) {
+    private User(UUID uuid, VaroTeam team, Player player) {
         this.uuid = uuid;
-        this.player = Bukkit.getPlayer(uuid);
         this.team = team;
+        this.player = player;
     }
 
-    public static User create(UUID uuid, VaroTeam team) {
-        return new User(uuid, team);
+    public static User create(UUID uuid, VaroTeam team, Player player) {
+        return new User(uuid, team, player);
     }
 
     private void updateOnlineTime() {
@@ -64,13 +64,15 @@ public class User {
                 }
 
                 updateOnlineTime();
-                if (getOnlineTime() >= MAX_ONLINE_TIME - 10) {
-                    if (getOnlineTime() != MAX_ONLINE_TIME) {
-                        final int DIFFERENCE = MAX_ONLINE_TIME - getOnlineTime();
-                        Bukkit.getScheduler().runTask(varo, () -> player.sendMessage("§eDu wirst in " + DIFFERENCE + " " + (DIFFERENCE > 1 ? "Sekunden" : "Sekunde") + " gekickt"));
-                        return;
+                if (getOnlineTime() < MAX_ONLINE_TIME) {
+                    if (getOnlineTime() >= MAX_ONLINE_TIME - 10) {
+                        if (getOnlineTime() != MAX_ONLINE_TIME) {
+                            final int DIFFERENCE = MAX_ONLINE_TIME - getOnlineTime();
+                            Bukkit.getScheduler().runTask(varo, () -> player.sendMessage("§eDu wirst in " + DIFFERENCE + " " + (DIFFERENCE > 1 ? "Sekunden" : "Sekunde") + " gekickt"));
+                            return;
+                        }
                     }
-
+                } else if (getOnlineTime() == MAX_ONLINE_TIME) {
                     if (varo.getVaroGame().getCombatLog().asMap().containsKey(player.getUniqueId())) {
                         Bukkit.getScheduler().runTask(varo, () -> player.sendMessage("§eSolange du im Combatlog bist, musst du weitere 30 Sekunden auf dem Server bleiben"));
                         new BukkitRunnable() {

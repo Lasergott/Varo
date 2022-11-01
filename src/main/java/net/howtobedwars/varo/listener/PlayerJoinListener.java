@@ -29,15 +29,16 @@ public class PlayerJoinListener implements Listener {
                     .filter(team -> team.contains(player.getName()))
                     .findFirst();
 
-            if(!optionalTeam.isPresent()) {
+            if (!optionalTeam.isPresent()) {
                 Bukkit.broadcastMessage("§cFehler beim erstellen des Users " + player.getName() + ": der User wurde keinem Team zugewiesen");
                 return;
             }
             VaroTeam team = optionalTeam.get();
-            user = User.create(uuid, team);
+            user = User.create(uuid, team, player);
             varo.getVaroGame().getUserRegistry().put(uuid, user);
             varo.getVaroGame().setTablist(user);
         }
+        user.setPlayer(player);
         user.checkForTimeOver(varo);
         varo.getVaroGame().updateTablist();
     }

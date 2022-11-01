@@ -18,7 +18,6 @@ public class PlayerQuitListener implements Listener {
         Player player = event.getPlayer();
         User user = varo.getVaroGame().getUserRegistry().get(player.getUniqueId());
         if(user != null) {
-            varo.getVaroGame().removeTablist(user);
             if(varo.getVaroGame().getCombatLog().asMap().containsKey(player.getUniqueId())) {
                 player.setHealth(0);
             }

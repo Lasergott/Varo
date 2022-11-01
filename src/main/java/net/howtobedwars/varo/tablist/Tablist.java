@@ -12,13 +12,11 @@ import org.bukkit.scoreboard.Team;
 public class Tablist {
 
     private final Varo varo;
-    private final User user;
     private final Scoreboard scoreboard;
 
-    public Tablist(Varo varo, User user) {
+    public Tablist(Varo varo) {
         this.varo = varo;
-        this.user = user;
-        this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        this.scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
         Objective objective = scoreboard.getObjective("howtobedwars");
         if(objective == null) {
             objective = scoreboard.registerNewObjective("howtobedwars", "varo");
@@ -38,7 +36,7 @@ public class Tablist {
         }
     }
 
-    public void set() {
+    public void set(User user) {
         varo.getVaroGame().getUserRegistry().values().forEach(targetUser -> {
             VaroTeam team = targetUser.getTeam();
             if (team == null) {
@@ -49,12 +47,6 @@ public class Tablist {
         scoreboard.getTeam(user.getTeam().getTeamTag()).addEntry(user.getPlayer().getName());
         user.getPlayer().setScoreboard(scoreboard);
         user.setTablist(this);
-    }
-
-    public void remove() {
-        scoreboard.getTeam(user.getTeam().getTeamTag()).removeEntry(user.getPlayer().getName());
-        user.getPlayer().setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-        user.setTablist(null);
     }
 
     public void update() {
