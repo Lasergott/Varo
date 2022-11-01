@@ -56,7 +56,7 @@ public class User {
     public void checkForTimeOver(Varo varo) {
         new BukkitRunnable() {
             final int MAX_ONLINE_TIME = varo.getVaroGame().MAX_ONLINE_TIME;
-            final int LAST_TEN_SECONDS = MAX_ONLINE_TIME + 50;
+
             @Override
             public void run() {
                 if (!getPlayer().isOnline()) {
@@ -64,12 +64,13 @@ public class User {
                 }
 
                 updateOnlineTime();
-                if (getOnlineTime() >= LAST_TEN_SECONDS) {
-                    final int DIFFERENCE = MAX_ONLINE_TIME - getOnlineTime();
-                    Bukkit.getScheduler().runTask(varo, () -> player.sendMessage("§eDu wirst in " + DIFFERENCE + " " + (DIFFERENCE > 1 ? "Sekunden" : "Sekunde") + " gekickt"));
-                    return;
-                }
-                if (getOnlineTime() == varo.getVaroGame().MAX_ONLINE_TIME) {
+                if (getOnlineTime() >= MAX_ONLINE_TIME - 10) {
+                    if (getOnlineTime() != MAX_ONLINE_TIME) {
+                        final int DIFFERENCE = MAX_ONLINE_TIME - getOnlineTime();
+                        Bukkit.getScheduler().runTask(varo, () -> player.sendMessage("§eDu wirst in " + DIFFERENCE + " " + (DIFFERENCE > 1 ? "Sekunden" : "Sekunde") + " gekickt"));
+                        return;
+                    }
+
                     if (varo.getVaroGame().getCombatLog().asMap().containsKey(player.getUniqueId())) {
                         Bukkit.getScheduler().runTask(varo, () -> player.sendMessage("§eSolange du im Combatlog bist, musst du weitere 30 Sekunden auf dem Server bleiben"));
                         new BukkitRunnable() {
