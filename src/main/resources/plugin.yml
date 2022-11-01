@@ -1,0 +1,10 @@
+name: Varo
+version: 1.0
+author: deroq
+main: net.howtobedwars.varo.Varo
+commands:
+  team:
+  resetTimeOver:
+  resetTime:
+  addSpawn:
+  start:
