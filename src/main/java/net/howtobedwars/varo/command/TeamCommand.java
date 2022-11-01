@@ -42,7 +42,7 @@ public class TeamCommand implements CommandExecutor {
                     return true;
                 }
                 VaroTeam team = optionalTeam.get();
-                teamsConfig.removeTeam(team);
+                teamsConfig.remove(team);
                 varo.getVaroFiles().saveConfig(teamsConfig);
                 commandSender.sendMessage("§aTeam " + teamName + " wurde entfernt");
 
@@ -82,7 +82,7 @@ public class TeamCommand implements CommandExecutor {
                         return true;
                     }
                     team.addPlayer(player);
-                    teamsConfig.updateTeam(team);
+                    teamsConfig.update(team);
                     varo.getVaroFiles().saveConfig(teamsConfig);
                     commandSender.sendMessage("§aSpieler " + player + " ist nun in Team " + teamName);
 
@@ -92,7 +92,7 @@ public class TeamCommand implements CommandExecutor {
                         return true;
                     }
                     team.removePlayer(player);
-                    teamsConfig.updateTeam(team);
+                    teamsConfig.update(team);
                     varo.getVaroFiles().saveConfig(teamsConfig);
                     commandSender.sendMessage("§aSpieler " + player + " ist nun nicht mehr in Team " + teamName);
                 }
@@ -110,7 +110,7 @@ public class TeamCommand implements CommandExecutor {
                     return true;
                 }
                 VaroTeam team = VaroTeam.create(teamName, teamTag);
-                teamsConfig.addTeam(team);
+                teamsConfig.add(team);
                 varo.getVaroFiles().saveConfig(teamsConfig);
                 commandSender.sendMessage("§aTeam " + teamName + " wurde hinzugefügt");
             }

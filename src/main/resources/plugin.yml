@@ -8,3 +8,6 @@ commands:
   resetTime:
   addSpawn:
   start:
+  revive:
+  teamchat:
+    aliases: [tc]

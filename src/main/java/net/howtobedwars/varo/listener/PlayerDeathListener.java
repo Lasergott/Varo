@@ -22,7 +22,7 @@ public class PlayerDeathListener implements Listener {
         UUID uuid = victim.getUniqueId();
         if(varo.getVaroGame().getUserRegistry().containsKey(uuid)) {
             DeadUsersConfig deadUsersConfig = varo.getVaroFiles().getDeadUsersConfig();
-            deadUsersConfig.addUser(uuid);
+            deadUsersConfig.add(uuid);
             varo.getVaroFiles().saveConfig(deadUsersConfig);
             varo.getVaroGame().getUserRegistry().remove(uuid);
 

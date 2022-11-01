@@ -19,6 +19,7 @@ public class VaroGame {
     public final int PLAYER_TEAM_LIMIT;
     public final int ANTI_COMBAT_LOG_TIME;
     public final int COUNTDOWN_TIME;
+    public final int PROTECTION_TIME;
     public final String TIME_OVER_MESSAGE;
     public final String DEATH_MESSAGE;
     public final boolean TEAM_HIT_DAMAGE;
@@ -29,6 +30,10 @@ public class VaroGame {
     private boolean starting;
 
     @Getter
+    @Setter
+    private boolean protectionTime;
+
+    @Getter
     private final Map<UUID, User> userRegistry;
 
     @Getter
@@ -36,20 +41,22 @@ public class VaroGame {
 
     public VaroGame(Varo varo) {
         this.varo = varo;
-        this.userRegistry = new HashMap<>();
-        this.combatLog = CacheBuilder.newBuilder()
-                .expireAfterWrite(30, TimeUnit.SECONDS)
-                .build();
         MainConfig mainConfig = varo.getVaroFiles().getMainConfig();
         this.MAX_ONLINE_TIME = mainConfig.getMaxOnlineTime();
         this.PLAYER_TEAM_LIMIT = mainConfig.getPlayerTeamLimit();
         this.ANTI_COMBAT_LOG_TIME = mainConfig.getAntiCombatLogTime();
         this.COUNTDOWN_TIME = mainConfig.getCountdownTime();
+        this.PROTECTION_TIME = mainConfig.getProtectionTime();
         this.TIME_OVER_MESSAGE = mainConfig.getTimeOverMessage();
         this.DEATH_MESSAGE = mainConfig.getDeathMessage();
         this.TEAM_HIT_DAMAGE = mainConfig.isTeamHitDamage();
         this.TEAM_ROD_DAMAGE = mainConfig.isTeamRodDamage();
         this.starting = false;
+        this.protectionTime = false;
+        this.userRegistry = new HashMap<>();
+        this.combatLog = CacheBuilder.newBuilder()
+                .expireAfterWrite(ANTI_COMBAT_LOG_TIME - 1, TimeUnit.SECONDS)
+                .build();
     }
 
     public void setTablist(User user) {

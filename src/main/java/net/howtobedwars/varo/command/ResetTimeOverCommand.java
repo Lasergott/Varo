@@ -18,17 +18,17 @@ public class ResetTimeOverCommand implements CommandExecutor {
             commandSender.sendMessage("§cDazu hast du keine Rechte!");
             return true;
         }
-        if(args.length != 2 && !args[0].equalsIgnoreCase("timeOverReset")) {
+        if(args.length != 1) {
             commandSender.sendMessage("§c/resetTimeOver <player | all>");
             return true;
         }
         TimeOverConfig timeOverConfig = varo.getVaroFiles().getTimeOverConfig();
-        if(args[1].equalsIgnoreCase("all")) {
+        if(args[0].equalsIgnoreCase("all")) {
             timeOverConfig.clear();
             varo.getVaroFiles().saveConfig(timeOverConfig);
             commandSender.sendMessage("§aAlle Spieler können nun wieder auf den Server joinen");
         } else {
-            String player = args[1];
+            String player = args[0];
             if(!timeOverConfig.contains(player)) {
                 commandSender.sendMessage("§cDieser Spieler war noch nicht 30 Minuten auf dem Server. Um seine aktuelle Zeit zurückzusetzen, nutze /resetTime <player>");
                 return true;

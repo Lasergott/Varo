@@ -28,6 +28,10 @@ public class PlayerInteractListener implements Listener {
                 return;
             }
             if (block.getType() == Material.CHEST) {
+                if(varo.getVaroGame().isStarting()) {
+                    event.setCancelled(true);
+                    return;
+                }
                 User user = varo.getVaroGame().getUserRegistry().get(player.getUniqueId());
                 if (user == null) {
                     return;

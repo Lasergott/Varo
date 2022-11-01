@@ -17,17 +17,17 @@ public class TeamsConfig extends Config {
         this.teams = new ArrayList<>();
     }
 
-    public void addTeam(VaroTeam team) {
+    public void add(VaroTeam team) {
         teams.add(team);
     }
 
-    public void removeTeam(VaroTeam team) {
+    public void remove(VaroTeam team) {
         teams.remove(team);
     }
 
-    public void updateTeam(VaroTeam team) {
-        removeTeam(team);
-        addTeam(team);
+    public void update(VaroTeam team) {
+        remove(team);
+        add(team);
     }
 
     public static TeamsConfig create(File file) {

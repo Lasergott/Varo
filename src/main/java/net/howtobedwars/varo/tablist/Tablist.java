@@ -46,7 +46,6 @@ public class Tablist {
             }
             scoreboard.getTeam(team.getTeamTag()).addEntry(targetUser.getPlayer().getName());
         });
-
         scoreboard.getTeam(user.getTeam().getTeamTag()).addEntry(user.getPlayer().getName());
         user.getPlayer().setScoreboard(scoreboard);
         user.setTablist(this);

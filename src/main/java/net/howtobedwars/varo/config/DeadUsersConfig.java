@@ -19,7 +19,15 @@ public class DeadUsersConfig extends Config {
         return new DeadUsersConfig(file);
     }
 
-    public void addUser(UUID uuid) {
+    public void add(UUID uuid) {
         users.add(uuid);
+    }
+
+    public void remove(UUID uuid) {
+        users.remove(uuid);
+    }
+
+    public boolean contains(UUID uuid) {
+        return users.contains(uuid);
     }
 }

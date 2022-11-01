@@ -13,6 +13,8 @@ import java.util.Optional;
 
 public class VaroFiles {
 
+    private final Varo varo;
+
     @Getter
     private final File folder;
 
@@ -46,7 +48,8 @@ public class VaroFiles {
     @Getter
     private DeadUsersConfig deadUsersConfig;
 
-    public VaroFiles() {
+    public VaroFiles(Varo varo) {
+        this.varo = varo;
         this.folder = new File("plugins/Varo");
         this.timeOverConfigFile = new File(folder.getPath(), "timeOver.json");
         this.mainConfigFile = new File(folder.getPath(), "config.json");
@@ -102,20 +105,22 @@ public class VaroFiles {
     }
 
     public void saveConfig(Config config) {
-        Optional<File> optionalConfigFile = Arrays.stream(Objects.requireNonNull(folder.listFiles()))
-                .filter(file -> file.getName().equals(config.getFileName()))
-                .findFirst();
-        if (!optionalConfigFile.isPresent()) {
-            Bukkit.getLogger().warning("Config has not been saved because file has not been found.");
-            return;
-        }
-        File configFile = optionalConfigFile.get();
-        try (FileWriter fileWriter = new FileWriter(configFile)) {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            fileWriter.write(gson.toJson(config));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Bukkit.getScheduler().runTaskAsynchronously(varo, () -> {
+            Optional<File> optionalConfigFile = Arrays.stream(Objects.requireNonNull(folder.listFiles()))
+                    .filter(file -> file.getName().equals(config.getFileName()))
+                    .findFirst();
+            if (!optionalConfigFile.isPresent()) {
+                Bukkit.getScheduler().runTask(varo, () -> Bukkit.getLogger().warning("Config has not been saved because file has not been found."));
+                return;
+            }
+            File configFile = optionalConfigFile.get();
+            try (FileWriter fileWriter = new FileWriter(configFile)) {
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                fileWriter.write(gson.toJson(config));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private Config readConfig(File file, Class<? extends Config> clazz) {

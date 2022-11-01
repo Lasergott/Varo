@@ -14,7 +14,7 @@ public class Varo extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.varoFiles = new VaroFiles();
+        this.varoFiles = new VaroFiles(this);
         this.varoGame = new VaroGame(this);
         registerEvents();
         registerCommands();
@@ -37,6 +37,8 @@ public class Varo extends JavaPlugin {
         pluginManager.registerEvents(new PlayerDeathListener(this), this);
         pluginManager.registerEvents(new SignChangeListener(this), this);
         pluginManager.registerEvents(new PlayerInteractListener(this), this);
+        pluginManager.registerEvents(new EntityDamageListener(this), this);
+        pluginManager.registerEvents(new AsyncPlayerChatListener(this), this);
     }
 
     private void registerCommands() {
@@ -45,6 +47,8 @@ public class Varo extends JavaPlugin {
         getCommand("resetTime").setExecutor(new ResetTimeCommand(this));
         getCommand("addSpawn").setExecutor(new AddSpawnCommand(this));
         getCommand("start").setExecutor(new StartCommand(this));
+        getCommand("teamchat").setExecutor(new TeamChatCommand(this));
+        getCommand("revive").setExecutor(new ReviveCommand(this));
     }
 
     public VaroFiles getVaroFiles() {
