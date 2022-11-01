@@ -2,6 +2,8 @@ package net.howtobedwars.varo.listener;
 
 import lombok.AllArgsConstructor;
 import net.howtobedwars.varo.Varo;
+import net.howtobedwars.varo.cps.CPSCheck;
+import net.howtobedwars.varo.cps.ClickType;
 import net.howtobedwars.varo.team.VaroTeam;
 import net.howtobedwars.varo.user.User;
 import org.bukkit.Material;
@@ -22,6 +24,20 @@ public class PlayerInteractListener implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
+            CPSCheck cpsCheck = varo.getVaroGame().getCpsCheckCache().asMap().get(player.getUniqueId());
+            if(cpsCheck == null) {
+                return;
+            }
+            cpsCheck.click(ClickType.LEFT);
+        }
+        if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            CPSCheck cpsCheck = varo.getVaroGame().getCpsCheckCache().asMap().get(player.getUniqueId());
+            if(cpsCheck == null) {
+                return;
+            }
+            cpsCheck.click(ClickType.RIGHT);
+        }
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Block block = event.getClickedBlock();
             if (block == null) {

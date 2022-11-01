@@ -2,6 +2,7 @@ package net.howtobedwars.varo.listener;
 
 import lombok.AllArgsConstructor;
 import net.howtobedwars.varo.Varo;
+import net.howtobedwars.varo.cps.CPSCheck;
 import net.howtobedwars.varo.user.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,8 +18,13 @@ public class PlayerQuitListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         User user = varo.getVaroGame().getUserRegistry().get(player.getUniqueId());
-        if(user != null) {
-            if(varo.getVaroGame().getCombatLog().asMap().containsKey(player.getUniqueId())) {
+        if(player.hasMetadata("cps-check")) {
+            CPSCheck cpsCheck = (CPSCheck) player.getMetadata("cps-check").get(0).value();
+            cpsCheck.uncheck();
+            player.removeMetadata("cps-check", varo);
+        }
+        if (user != null) {
+            if (varo.getVaroGame().getCombatLogCache().asMap().containsKey(player.getUniqueId())) {
                 player.setHealth(0);
             }
         }

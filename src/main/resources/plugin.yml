@@ -9,5 +9,6 @@ commands:
   addSpawn:
   start:
   revive:
+  cps:
   teamchat:
     aliases: [tc]

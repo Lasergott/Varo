@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.howtobedwars.varo.Varo;
 import net.howtobedwars.varo.config.MainConfig;
+import net.howtobedwars.varo.cps.CPSCheck;
 import net.howtobedwars.varo.tablist.Tablist;
 import net.howtobedwars.varo.user.User;
 
@@ -39,7 +40,10 @@ public class VaroGame {
     private final Map<UUID, User> userRegistry;
 
     @Getter
-    private final Cache<UUID, User> combatLog;
+    private final Cache<UUID, User> combatLogCache;
+
+    @Getter
+    private final Cache<UUID, CPSCheck> cpsCheckCache;
 
     public VaroGame(Varo varo) {
         this.varo = varo;
@@ -57,9 +61,10 @@ public class VaroGame {
         this.protectionTime = false;
         this.tablist = new Tablist(varo);
         this.userRegistry = new HashMap<>();
-        this.combatLog = CacheBuilder.newBuilder()
+        this.combatLogCache = CacheBuilder.newBuilder()
                 .expireAfterWrite(ANTI_COMBAT_LOG_TIME - 1, TimeUnit.SECONDS)
                 .build();
+        this.cpsCheckCache = CacheBuilder.newBuilder().build();
     }
 
     public void setTablist(User user) {

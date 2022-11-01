@@ -73,12 +73,12 @@ public class User {
                         }
                     }
                 } else if (getOnlineTime() == MAX_ONLINE_TIME) {
-                    if (varo.getVaroGame().getCombatLog().asMap().containsKey(player.getUniqueId())) {
+                    if (varo.getVaroGame().getCombatLogCache().asMap().containsKey(player.getUniqueId())) {
                         Bukkit.getScheduler().runTask(varo, () -> player.sendMessage("§eSolange du im Combatlog bist, musst du weitere 30 Sekunden auf dem Server bleiben"));
                         new BukkitRunnable() {
                             @Override
                             public void run() {
-                                if (!varo.getVaroGame().getCombatLog().asMap().containsKey(player.getUniqueId())) {
+                                if (!varo.getVaroGame().getCombatLogCache().asMap().containsKey(player.getUniqueId())) {
                                     Bukkit.getScheduler().runTask(JavaPlugin.getPlugin(Varo.class), () -> Bukkit.getPluginManager().callEvent(new UserTimeOverEvent(getUser())));
                                     cancel();
                                 }
