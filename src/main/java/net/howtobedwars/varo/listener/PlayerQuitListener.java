@@ -18,15 +18,15 @@ public class PlayerQuitListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         User user = varo.getVaroGame().getUserRegistry().get(player.getUniqueId());
-        if(player.hasMetadata("cps-check")) {
-            CPSCheck cpsCheck = (CPSCheck) player.getMetadata("cps-check").get(0).value();
-            cpsCheck.uncheck();
-            player.removeMetadata("cps-check", varo);
+        if (user == null) {
+            return;
         }
-        if (user != null) {
-            if (varo.getVaroGame().getCombatLogCache().asMap().containsKey(player.getUniqueId())) {
-                player.setHealth(0);
-            }
+        if (varo.getVaroGame().getCombatLogCache().asMap().containsKey(player.getUniqueId())) {
+            player.setHealth(0);
         }
+        CPSCheck cpsCheck = user.getCpsCheck();
+        cpsCheck.uncheck();
+        user.setCpsCheck(null);
+        player.removeMetadata("cps-check", varo);
     }
 }

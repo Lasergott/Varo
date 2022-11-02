@@ -2,6 +2,7 @@ package net.howtobedwars.varo.listener;
 
 import lombok.AllArgsConstructor;
 import net.howtobedwars.varo.Varo;
+import net.howtobedwars.varo.cps.CPSCheck;
 import net.howtobedwars.varo.team.VaroTeam;
 import net.howtobedwars.varo.user.User;
 import org.bukkit.Bukkit;
@@ -38,6 +39,7 @@ public class PlayerJoinListener implements Listener {
             varo.getVaroGame().getUserRegistry().put(uuid, user);
             varo.getVaroGame().setTablist(user);
         }
+        user.setCpsCheck(new CPSCheck(varo, player));
         user.setPlayer(player);
         user.checkForTimeOver(varo);
         varo.getVaroGame().updateTablist();

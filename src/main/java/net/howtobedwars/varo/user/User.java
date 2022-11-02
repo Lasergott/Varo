@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import net.howtobedwars.varo.Varo;
+import net.howtobedwars.varo.cps.CPSCheck;
 import net.howtobedwars.varo.event.UserTimeOverEvent;
 import net.howtobedwars.varo.tablist.Tablist;
 import net.howtobedwars.varo.team.VaroTeam;
@@ -34,6 +35,10 @@ public class User {
     @Getter
     @Setter
     private int onlineTime;
+
+    @Getter
+    @Setter
+    private CPSCheck cpsCheck;
 
     private User(UUID uuid, VaroTeam team, Player player) {
         this.uuid = uuid;

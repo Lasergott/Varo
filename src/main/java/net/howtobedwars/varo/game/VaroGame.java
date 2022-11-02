@@ -25,6 +25,7 @@ public class VaroGame {
     public final int COUNTDOWN_TIME;
     public final int PROTECTION_TIME;
     public final int BROADCAST_TIME;
+    public final int CPS_LIMIT;
     public final String TIME_OVER_MESSAGE;
     public final String DEATH_MESSAGE;
     public final boolean TEAM_HIT_DAMAGE;
@@ -45,9 +46,6 @@ public class VaroGame {
     @Getter
     private final Cache<UUID, User> combatLogCache;
 
-    @Getter
-    private final Cache<UUID, CPSCheck> cpsCheckCache;
-
     public VaroGame(Varo varo) {
         this.varo = varo;
         MainConfig mainConfig = varo.getVaroFiles().getMainConfig();
@@ -57,18 +55,18 @@ public class VaroGame {
         this.COUNTDOWN_TIME = mainConfig.getCountdownTime();
         this.PROTECTION_TIME = mainConfig.getProtectionTime();
         this.BROADCAST_TIME = mainConfig.getBroadcastTime();
+        this.CPS_LIMIT = mainConfig.getCpsLimit();
         this.TIME_OVER_MESSAGE = mainConfig.getTimeOverMessage();
         this.DEATH_MESSAGE = mainConfig.getDeathMessage();
         this.TEAM_HIT_DAMAGE = mainConfig.isTeamHitDamage();
         this.TEAM_ROD_DAMAGE = mainConfig.isTeamRodDamage();
         this.starting = false;
         this.protectionTime = false;
-        this.tablist = new Tablist(varo);
+        this.tablist = Tablist.create(varo);
         this.userRegistry = new HashMap<>();
         this.combatLogCache = CacheBuilder.newBuilder()
                 .expireAfterWrite(ANTI_COMBAT_LOG_TIME - 1, TimeUnit.SECONDS)
                 .build();
-        this.cpsCheckCache = CacheBuilder.newBuilder().build();
         sendBroadcasts();
     }
 

@@ -3,6 +3,7 @@ package net.howtobedwars.varo.command;
 import lombok.AllArgsConstructor;
 import net.howtobedwars.varo.Varo;
 import net.howtobedwars.varo.cps.CPSCheck;
+import net.howtobedwars.varo.user.User;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -39,13 +40,17 @@ public class CPSCommand implements CommandExecutor {
                 player.sendMessage("§cDieser Spieler ist zurzeit nicht online");
                 return true;
             }
-            if (player.hasMetadata("cps-check")) {
+            User user = varo.getVaroGame().getUserRegistry().get(target.getUniqueId());
+            if(user == null) {
+                player.sendMessage("§cFehler beim CpsCheck: User wurde nicht erstellt");
+                return true;
+            }
+            if(player.hasMetadata("cps-check")) {
                 removeCPSCheck(player);
             } else {
-                CPSCheck cpsCheck = new CPSCheck(varo, player, target);
+                CPSCheck cpsCheck = user.getCpsCheck();
+                cpsCheck.setChecker(player);
                 player.setMetadata("cps-check", new FixedMetadataValue(varo, cpsCheck));
-                varo.getVaroGame().getCpsCheckCache().put(target.getUniqueId(), cpsCheck);
-                player.sendMessage("§aDu siehst nun die Klicks des Spielers " + cpsCheck.getTarget().getName());
             }
         }
         return false;
@@ -53,8 +58,8 @@ public class CPSCommand implements CommandExecutor {
 
     private void removeCPSCheck(Player player) {
         CPSCheck cpsCheck = (CPSCheck) player.getMetadata("cps-check").get(0).value();
-        cpsCheck.uncheck();
+        cpsCheck.setChecker(null);
         player.removeMetadata("cps-check", varo);
-        player.sendMessage("§aDu siehst nun nicht mehr die Klicks des Spielers " + cpsCheck.getTarget().getName());
+        player.sendMessage("§aDu siehst nun nicht mehr die Klicks des Spielers " + cpsCheck.getPlayer().getName());
     }
 }

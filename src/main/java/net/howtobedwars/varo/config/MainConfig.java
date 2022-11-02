@@ -28,6 +28,9 @@ public class MainConfig extends Config {
     private final int broadcastTime;
 
     @Getter
+    private final int cpsLimit;
+
+    @Getter
     private final String timeOverMessage;
 
     @Getter
@@ -47,6 +50,7 @@ public class MainConfig extends Config {
         this.countdownTime = 31;
         this.protectionTime = 30;
         this.broadcastTime = 3 * 60;
+        this.cpsLimit = 30;
         this.timeOverMessage = "§cDie 30 Minuten sind abgelaufen.\nMorgen kannst du erneut auf den Server joinen.";
         this.deathMessage = "§cDu bist gestorben.\nDu kannst nicht erneut auf den Server joinen.";
         this.teamHitDamage = false;

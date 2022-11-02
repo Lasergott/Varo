@@ -14,7 +14,7 @@ public class Tablist {
     private final Varo varo;
     private final Scoreboard scoreboard;
 
-    public Tablist(Varo varo) {
+    private Tablist(Varo varo) {
         this.varo = varo;
         this.scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
         Objective objective = scoreboard.getObjective("howtobedwars");
@@ -34,6 +34,10 @@ public class Tablist {
             }
             scoreboardTeam.setPrefix("§a" + teamTag + " §7| " + "§f");
         }
+    }
+
+    public static Tablist create(Varo varo) {
+        return new Tablist(varo);
     }
 
     public void set(User user) {
