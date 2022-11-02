@@ -28,7 +28,7 @@ public class AddSpawnCommand implements CommandExecutor {
             return true;
         }
         SpawnsConfig spawnsConfig =  varo.getVaroFiles().getSpawnsConfig();
-        spawnsConfig.addSpawn(player.getLocation());
+        spawnsConfig.add(player.getLocation());
         varo.getVaroFiles().saveConfig(spawnsConfig);
         player.sendMessage("§aSpawn wurde hinzugefügt");
         return false;

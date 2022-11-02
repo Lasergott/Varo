@@ -10,5 +10,6 @@ commands:
   start:
   revive:
   cps:
+  broadcast:
   teamchat:
     aliases: [tc]

@@ -22,7 +22,7 @@ public class SpawnsConfig extends Config {
         return new SpawnsConfig(file);
     }
 
-    public void addSpawn(Location location) {
+    public void add(Location location) {
         spawns.add(LocationSerializer.serialize(location));
     }
 }

@@ -48,6 +48,12 @@ public class VaroFiles {
     @Getter
     private DeadUsersConfig deadUsersConfig;
 
+    @Getter
+    private final File broadcastsConfigFile;
+
+    @Getter
+    private BroadcastsConfig broadcastsConfig;
+
     public VaroFiles(Varo varo) {
         this.varo = varo;
         this.folder = new File("plugins/Varo");
@@ -56,6 +62,7 @@ public class VaroFiles {
         this.teamsConfigFile = new File(folder.getPath(), "teams.json");
         this.spawnsConfigFile = new File(folder.getPath(), "spawns.json");
         this.deadUsersConfigFile = new File(folder.getPath(), "deadUsers.json");
+        this.broadcastsConfigFile = new File(folder.getPath(), "broadcasts.json");
         if (!folder.exists()) {
             if(!folder.mkdirs()) {
                 Bukkit.getLogger().warning("Folder has not been created for unknown reasons.");
@@ -72,12 +79,12 @@ public class VaroFiles {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         this.timeOverConfig = (TimeOverConfig) readConfig(timeOverConfigFile, TimeOverConfig.class);
         this.mainConfig = (MainConfig) readConfig(mainConfigFile, MainConfig.class);
         this.teamsConfig = (TeamsConfig) readConfig(teamsConfigFile, TeamsConfig.class);
         this.spawnsConfig = (SpawnsConfig) readConfig(spawnsConfigFile, SpawnsConfig.class);
         this.deadUsersConfig = (DeadUsersConfig) readConfig(deadUsersConfigFile, DeadUsersConfig.class);
+        this.broadcastsConfig = (BroadcastsConfig) readConfig(broadcastsConfigFile, BroadcastsConfig.class);
     }
 
     private boolean createConfigs() throws IOException {

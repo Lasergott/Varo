@@ -6,7 +6,6 @@ import net.howtobedwars.varo.listener.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class Varo extends JavaPlugin {
 
@@ -20,13 +19,6 @@ public class Varo extends JavaPlugin {
         registerEvents();
         registerCommands();
         getLogger().info("Varo has been enabled.");
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-
-            }
-        }.runTaskLaterAsynchronously(this, 24 * 60 * 60 * 20);
     }
 
     @Override
@@ -58,6 +50,7 @@ public class Varo extends JavaPlugin {
         getCommand("teamchat").setExecutor(new TeamChatCommand(this));
         getCommand("revive").setExecutor(new ReviveCommand(this));
         getCommand("cps").setExecutor(new CPSCommand(this));
+        getCommand("broadcast").setExecutor(new BroadcastCommand(this));
     }
 
     public VaroFiles getVaroFiles() {
