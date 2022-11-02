@@ -40,6 +40,10 @@ public class User {
     @Setter
     private CPSCheck cpsCheck;
 
+    @Getter
+    @Setter
+    private ConfigUser configUser;
+
     private User(UUID uuid, VaroTeam team, Player player) {
         this.uuid = uuid;
         this.team = team;

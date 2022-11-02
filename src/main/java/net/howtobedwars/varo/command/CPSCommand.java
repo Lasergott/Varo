@@ -28,7 +28,7 @@ public class CPSCommand implements CommandExecutor {
         }
         if (args.length == 0) {
             if (!player.hasMetadata("cps-check")) {
-                player.sendMessage("§c/cps <player>");
+                player.sendMessage("§c/cps <playerName>");
                 return true;
             }
             removeCPSCheck(player);

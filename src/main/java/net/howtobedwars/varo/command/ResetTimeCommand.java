@@ -21,7 +21,7 @@ public class ResetTimeCommand implements CommandExecutor {
             return true;
         }
         if (args.length != 1) {
-            commandSender.sendMessage("§c/resetTime <player | all>");
+            commandSender.sendMessage("§c/resetTime <playerName | all>");
             return true;
         }
         if (args[0].equalsIgnoreCase("all")) {

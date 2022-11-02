@@ -19,7 +19,7 @@ public class ResetTimeOverCommand implements CommandExecutor {
             return true;
         }
         if (args.length != 1) {
-            commandSender.sendMessage("§c/resetTimeOver <player | all>");
+            commandSender.sendMessage("§c/resetTimeOver <playerName | all>");
             return true;
         }
         TimeOverConfig timeOverConfig = varo.getVaroFiles().getTimeOverConfig();

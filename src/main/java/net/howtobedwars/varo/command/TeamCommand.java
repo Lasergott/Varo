@@ -25,7 +25,7 @@ public class TeamCommand implements CommandExecutor {
         if (args.length < 2 || args.length > 3) {
             commandSender.sendMessage("§c/team create <teamName> <teamTag>");
             commandSender.sendMessage("§c/team delete <teamName>");
-            commandSender.sendMessage("§c/team <addPlayer|removePlayer> <teamName> <player>");
+            commandSender.sendMessage("§c/team <addPlayer|removePlayer> <teamName> <playerName>");
             commandSender.sendMessage("§c/team setPlayerLimit <limit>");
             return true;
         }

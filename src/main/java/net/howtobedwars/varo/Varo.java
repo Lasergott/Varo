@@ -51,6 +51,7 @@ public class Varo extends JavaPlugin {
         getCommand("revive").setExecutor(new ReviveCommand(this));
         getCommand("cps").setExecutor(new CPSCommand(this));
         getCommand("broadcast").setExecutor(new BroadcastCommand(this));
+        getCommand("seen").setExecutor(new SeenCommand(this));
     }
 
     public VaroFiles getVaroFiles() {

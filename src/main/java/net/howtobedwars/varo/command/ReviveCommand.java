@@ -22,7 +22,7 @@ public class ReviveCommand implements CommandExecutor {
             return true;
         }
         if (args.length != 1) {
-            commandSender.sendMessage("§c/revive <uuid>");
+            commandSender.sendMessage("§c/revive <playerUUID>");
             return true;
         }
         DeadUsersConfig deadUsersConfig = varo.getVaroFiles().getDeadUsersConfig();

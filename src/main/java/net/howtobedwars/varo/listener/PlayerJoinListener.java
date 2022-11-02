@@ -2,8 +2,10 @@ package net.howtobedwars.varo.listener;
 
 import lombok.AllArgsConstructor;
 import net.howtobedwars.varo.Varo;
+import net.howtobedwars.varo.config.UsersConfig;
 import net.howtobedwars.varo.cps.CPSCheck;
 import net.howtobedwars.varo.team.VaroTeam;
+import net.howtobedwars.varo.user.ConfigUser;
 import net.howtobedwars.varo.user.User;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -24,7 +26,7 @@ public class PlayerJoinListener implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
         User user = varo.getVaroGame().getUserRegistry().get(uuid);
-        if(user == null) {
+        if (user == null) {
             Optional<VaroTeam> optionalTeam = varo.getVaroFiles().getTeamsConfig().getTeams()
                     .stream()
                     .filter(team -> team.contains(player.getName()))
@@ -43,5 +45,15 @@ public class PlayerJoinListener implements Listener {
         user.setPlayer(player);
         user.checkForTimeOver(varo);
         varo.getVaroGame().updateTablist();
+
+        /* INTERNAL CONFIG USER */
+        UsersConfig usersConfig = varo.getVaroFiles().getUsersConfig();
+        Optional<ConfigUser> optionalConfigUser = usersConfig.get(uuid);
+        ConfigUser configUser;
+        configUser = optionalConfigUser.orElseGet(() -> ConfigUser.create(uuid, player.getName()));
+        configUser.setLastJoin(System.currentTimeMillis());
+        usersConfig.update(configUser);
+        varo.getVaroFiles().saveConfig(usersConfig);
+        user.setConfigUser(configUser);
     }
 }

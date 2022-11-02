@@ -11,5 +11,6 @@ commands:
   revive:
   cps:
   broadcast:
+  seen:
   teamchat:
     aliases: [tc]

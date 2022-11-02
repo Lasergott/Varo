@@ -3,6 +3,7 @@ package net.howtobedwars.varo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Getter;
+import lombok.Setter;
 import net.howtobedwars.varo.config.*;
 import org.bukkit.Bukkit;
 
@@ -54,6 +55,12 @@ public class VaroFiles {
     @Getter
     private BroadcastsConfig broadcastsConfig;
 
+    @Getter
+    private final File usersConfigFile;
+
+    @Getter
+    private UsersConfig usersConfig;
+
     public VaroFiles(Varo varo) {
         this.varo = varo;
         this.folder = new File("plugins/Varo");
@@ -63,6 +70,7 @@ public class VaroFiles {
         this.spawnsConfigFile = new File(folder.getPath(), "spawns.json");
         this.deadUsersConfigFile = new File(folder.getPath(), "deadUsers.json");
         this.broadcastsConfigFile = new File(folder.getPath(), "broadcasts.json");
+        this.usersConfigFile = new File(folder.getPath(), "users.json");
         if (!folder.exists()) {
             if(!folder.mkdirs()) {
                 Bukkit.getLogger().warning("Folder has not been created for unknown reasons.");
@@ -85,6 +93,7 @@ public class VaroFiles {
         this.spawnsConfig = (SpawnsConfig) readConfig(spawnsConfigFile, SpawnsConfig.class);
         this.deadUsersConfig = (DeadUsersConfig) readConfig(deadUsersConfigFile, DeadUsersConfig.class);
         this.broadcastsConfig = (BroadcastsConfig) readConfig(broadcastsConfigFile, BroadcastsConfig.class);
+        this.usersConfig = (UsersConfig) readConfig(usersConfigFile, UsersConfig.class);
     }
 
     private boolean createConfigs() throws IOException {
@@ -108,6 +117,14 @@ public class VaroFiles {
         created = deadUsersConfigFile.createNewFile();
         this.deadUsersConfig = DeadUsersConfig.create(deadUsersConfigFile);
         saveConfig(deadUsersConfig);
+
+        created = broadcastsConfigFile.createNewFile();
+        this.broadcastsConfig = BroadcastsConfig.create(broadcastsConfigFile);
+        saveConfig(broadcastsConfig);
+
+        created = usersConfigFile.createNewFile();
+        this.usersConfig = UsersConfig.create(usersConfigFile);
+        saveConfig(usersConfig);
         return created;
     }
 
