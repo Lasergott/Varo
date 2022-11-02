@@ -76,8 +76,9 @@ public class VaroGame {
             final List<String> messages = new ArrayList<>(varo.getVaroFiles().getBroadcastsConfig().getMessages().values());
             @Override
             public void run() {
-                if(messages.isEmpty()) {
+                if(messages.size() == 0) {
                     cancel();
+                    return;
                 }
                 if(key >= messages.size()) {
                     key = 0;

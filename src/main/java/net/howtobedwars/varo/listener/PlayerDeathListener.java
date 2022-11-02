@@ -20,6 +20,7 @@ public class PlayerDeathListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player victim = event.getEntity();
         UUID uuid = victim.getUniqueId();
+        event.setDeathMessage(null);
         if(varo.getVaroGame().getUserRegistry().containsKey(uuid)) {
             DeadUsersConfig deadUsersConfig = varo.getVaroFiles().getDeadUsersConfig();
             deadUsersConfig.add(uuid);

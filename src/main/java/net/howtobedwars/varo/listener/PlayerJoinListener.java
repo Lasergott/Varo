@@ -39,7 +39,7 @@ public class PlayerJoinListener implements Listener {
             varo.getVaroGame().getUserRegistry().put(uuid, user);
             varo.getVaroGame().setTablist(user);
         }
-        user.setCpsCheck(new CPSCheck(varo, player));
+        user.setCpsCheck(CPSCheck.create(varo, player));
         user.setPlayer(player);
         user.checkForTimeOver(varo);
         varo.getVaroGame().updateTablist();

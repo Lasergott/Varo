@@ -31,10 +31,14 @@ public class CPSCheck {
     @Setter
     private int rightCPS;
 
-    public CPSCheck(Varo varo, Player player) {
+    private CPSCheck(Varo varo, Player player) {
         this.player = player;
         this.cpsCheckTask = runCpsCheck(varo);
         this.cpsLimitCheckTask = runCpsLimitCheck(varo);
+    }
+
+    public static CPSCheck create(Varo varo, Player player) {
+        return new CPSCheck(varo, player);
     }
 
     public void click(ClickType clickType) {
