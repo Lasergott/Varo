@@ -34,14 +34,6 @@ public class VaroGame {
 
     @Getter
     @Setter
-    private boolean damage;
-
-    @Getter
-    @Setter
-    private boolean blockBreak;
-
-    @Getter
-    @Setter
     private boolean starting;
 
     @Getter
@@ -71,8 +63,6 @@ public class VaroGame {
         this.starting = false;
         this.protectionTime = false;
         this.tablist = Tablist.create(varo);
-        this.damage = true;
-        this.blockBreak = true;
         this.userRegistry = new HashMap<>();
         this.combatLogCache = CacheBuilder.newBuilder()
                 .expireAfterWrite(ANTI_COMBAT_LOG_TIME - 1, TimeUnit.SECONDS)

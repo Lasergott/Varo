@@ -31,7 +31,7 @@ public class PlayerDeathListener implements Listener {
             varo.getVaroGame().getUserRegistry().remove(uuid);
 
             if (victim.getKiller() != null) {
-                Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage("§a" + victim.getName() + " §ewurde von §c" + victim.getKiller() + " §7getötet"));
+                Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage("§a" + victim.getName() + " §ewurde von §c" + victim.getKiller().getName() + " §egetötet"));
                 User killerUser = varo.getVaroGame().getUserRegistry().get(victim.getKiller().getUniqueId());
                 if (killerUser == null) {
                     return;

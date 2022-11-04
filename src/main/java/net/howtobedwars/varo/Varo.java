@@ -39,6 +39,7 @@ public class Varo extends JavaPlugin {
         pluginManager.registerEvents(new PlayerInteractListener(this), this);
         pluginManager.registerEvents(new EntityDamageListener(this), this);
         pluginManager.registerEvents(new AsyncPlayerChatListener(this), this);
+        pluginManager.registerEvents(new PlayerMoveListener(this), this);
     }
 
     private void registerCommands() {
@@ -52,8 +53,6 @@ public class Varo extends JavaPlugin {
         getCommand("cps").setExecutor(new CPSCommand(this));
         getCommand("broadcast").setExecutor(new BroadcastCommand(this));
         getCommand("seen").setExecutor(new SeenCommand(this));
-        getCommand("toggledamage").setExecutor(new ToggleDamageCommand(this));
-        getCommand("toggleblockbreak").setExecutor(new ToggleBlockBreakCommand(this));
     }
 
     public VaroFiles getVaroFiles() {

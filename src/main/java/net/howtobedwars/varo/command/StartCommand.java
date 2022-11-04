@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import net.howtobedwars.varo.Varo;
 import net.howtobedwars.varo.util.LocationSerializer;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -28,16 +29,10 @@ public class StartCommand implements CommandExecutor {
             player.sendMessage("§cDazu hast du keine Rechte!");
             return true;
         }
-        int i = 0;
-        for (Player target : Bukkit.getOnlinePlayers()) {
-            String serializedLocation = varo.getVaroFiles().getSpawnsConfig().getSpawns().get(i);
-            Location location = LocationSerializer.deserialize(serializedLocation);
-            target.teleport(location);
-            i++;
-        }
         varo.getVaroGame().setStarting(true);
         new BukkitRunnable() {
             int seconds = varo.getVaroGame().COUNTDOWN_TIME;
+
             @Override
             public void run() {
                 seconds--;
@@ -49,9 +44,11 @@ public class StartCommand implements CommandExecutor {
                     Bukkit.getOnlinePlayers().forEach(target -> target.sendMessage("§eDas Varo hat begonnen! Viel Erfolg"));
                     Bukkit.getOnlinePlayers().forEach(target -> target.sendMessage("§eDie Schutzzeit endet in 30 Sekunden"));
                     Bukkit.getScheduler().runTaskLater(varo, () -> {
-                        Bukkit.getOnlinePlayers().forEach(target -> target.sendMessage("§eDie Schutzzeit ist vorbei!"));
+                        Bukkit.getOnlinePlayers().forEach(target -> {
+                            target.sendMessage("§eDie Schutzzeit ist vorbei!");
+                            target.setGameMode(GameMode.SURVIVAL);
+                        });
                         varo.getVaroGame().setProtectionTime(false);
-                        varo.getVaroGame().setDamage(true);
                     }, varo.getVaroGame().PROTECTION_TIME * 20L);
                     cancel();
                 }

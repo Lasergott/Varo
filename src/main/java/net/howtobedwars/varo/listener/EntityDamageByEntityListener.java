@@ -45,7 +45,7 @@ public class EntityDamageByEntityListener implements Listener {
                 } else {
                     if(event.getDamage() >= 0.5) {
                         varo.getVaroGame().getCombatLogCache().put(victim.getUniqueId(), victimUser);
-                        victim.sendMessage("§eDu bist im Combatlog. Logge dich nicht aus");
+                        victim.sendMessage("§eDu bist für 30 Sekunden im Combatlog. Logge dich nicht aus");
                     }
                 }
             }
