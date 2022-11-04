@@ -38,7 +38,6 @@ public class StartCommand implements CommandExecutor {
         varo.getVaroGame().setStarting(true);
         new BukkitRunnable() {
             int seconds = varo.getVaroGame().COUNTDOWN_TIME;
-
             @Override
             public void run() {
                 seconds--;
@@ -52,6 +51,7 @@ public class StartCommand implements CommandExecutor {
                     Bukkit.getScheduler().runTaskLater(varo, () -> {
                         Bukkit.getOnlinePlayers().forEach(target -> target.sendMessage("§eDie Schutzzeit ist vorbei!"));
                         varo.getVaroGame().setProtectionTime(false);
+                        varo.getVaroGame().setDamage(true);
                     }, varo.getVaroGame().PROTECTION_TIME * 20L);
                     cancel();
                 }

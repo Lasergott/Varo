@@ -43,8 +43,10 @@ public class EntityDamageByEntityListener implements Listener {
                 if (attackerUser.getTeam().equals(victimUser.getTeam())) {
                     event.setCancelled(playerDamage ? !varo.getVaroGame().TEAM_HIT_DAMAGE : !varo.getVaroGame().TEAM_ROD_DAMAGE);
                 } else {
-                    varo.getVaroGame().getCombatLogCache().put(victim.getUniqueId(), victimUser);
-                    victim.sendMessage("§eDu bist im Combatlog. Logge dich nicht aus");
+                    if(event.getDamage() >= 0.5) {
+                        varo.getVaroGame().getCombatLogCache().put(victim.getUniqueId(), victimUser);
+                        victim.sendMessage("§eDu bist im Combatlog. Logge dich nicht aus");
+                    }
                 }
             }
         }

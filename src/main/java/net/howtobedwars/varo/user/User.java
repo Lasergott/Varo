@@ -1,5 +1,6 @@
 package net.howtobedwars.varo.user;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -15,33 +16,16 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
 
+@Data
 public class User {
 
-    @Getter
     private final UUID uuid;
-
-    @Getter
-    @Setter
     private Player player;
-
-    @Getter
     private final VaroTeam team;
-
-    @Getter
-    @Setter
     private Tablist tablist;
-
     /* ONLINE TIME IN SECONDS */
-    @Getter
-    @Setter
     private int onlineTime;
-
-    @Getter
-    @Setter
     private CPSCheck cpsCheck;
-
-    @Getter
-    @Setter
     private ConfigUser configUser;
 
     private User(UUID uuid, VaroTeam team, Player player) {

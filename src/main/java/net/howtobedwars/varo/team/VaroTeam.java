@@ -8,18 +8,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class VaroTeam implements Serializable {
 
-    @Getter
     private final String teamName;
-
-    @Getter
     private final String teamTag;
-
-    @Getter
     private final List<String> players;
-
     private String teamChest;
 
     public static VaroTeam create(String teamName, String teamTag) {

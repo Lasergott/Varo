@@ -12,5 +12,7 @@ commands:
   cps:
   broadcast:
   seen:
+  toggledamage:
+  toggleblockbreak:
   teamchat:
     aliases: [tc]

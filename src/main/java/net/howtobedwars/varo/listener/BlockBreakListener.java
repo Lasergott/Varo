@@ -22,6 +22,10 @@ public class BlockBreakListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
+        if(!varo.getVaroGame().isBlockBreak()) {
+            event.setCancelled(true);
+            return;
+        }
         if (varo.getVaroGame().isStarting()) {
             event.setCancelled(true);
             return;

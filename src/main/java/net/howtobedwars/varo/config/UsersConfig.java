@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.howtobedwars.varo.user.ConfigUser;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -11,10 +12,11 @@ import java.util.UUID;
 public class UsersConfig extends Config {
 
     @Getter
-    private Set<ConfigUser> users;
+    private final Set<ConfigUser> users;
 
     private UsersConfig(File file) {
         super(file.getName());
+        this.users = new HashSet<>();
     }
 
     public static UsersConfig create(File file) {

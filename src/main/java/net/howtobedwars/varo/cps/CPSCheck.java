@@ -1,34 +1,20 @@
 package net.howtobedwars.varo.cps;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import net.howtobedwars.varo.Varo;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+@Data
 public class CPSCheck {
 
-    @Getter
     private final BukkitTask cpsCheckTask;
-
-    @Getter
     private final BukkitTask cpsLimitCheckTask;
-
-    @Getter
     private final Player player;
-
-    @Getter
-    @Setter
     private Player checker;
-
-    @Getter
-    @Setter
     private int leftCPS;
-
-    @Getter
-    @Setter
     private int rightCPS;
 
     private CPSCheck(Varo varo, Player player) {

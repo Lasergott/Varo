@@ -1,5 +1,6 @@
 package net.howtobedwars.varo.tablist;
 
+import lombok.Getter;
 import net.howtobedwars.varo.Varo;
 import net.howtobedwars.varo.team.VaroTeam;
 import net.howtobedwars.varo.user.User;
@@ -12,6 +13,8 @@ import org.bukkit.scoreboard.Team;
 public class Tablist {
 
     private final Varo varo;
+
+    @Getter
     private final Scoreboard scoreboard;
 
     private Tablist(Varo varo) {

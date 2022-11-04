@@ -17,7 +17,7 @@ public class EntityDamageListener implements Listener {
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
         if(event.getEntity() instanceof Player) {
-            if(varo.getVaroGame().isStarting() || varo.getVaroGame().isProtectionTime()) {
+            if(varo.getVaroGame().isStarting() || varo.getVaroGame().isProtectionTime() || !varo.getVaroGame().isDamage()) {
                 event.setCancelled(true);
             }
         }
